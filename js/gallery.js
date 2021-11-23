@@ -33,12 +33,27 @@ function animate() {
 /************* DO NOT TOUCH CODE ABOVE THIS LINE ***************/
 
 function swapPhoto() {
+  if (mCurrentIndex >= mImages.length) {
+    mCurrentIndex = 0;
+  }
+  if (mCurrentIndex < 0) {
+    mCurrentIndex = mImages.length[14];
+  }
+  var location = document.getElementByClassName("location")[0].innerhtml = "Location: " + mImages[mCurrentIndex].location;
+  var description = document.getElementByClassName("description")[0].innerhtml = "Description: " + mImages[mCurrentIndex].description;
+  var date = document.getElementByClassName("date")[0].innerhtml = "Date: " + mImages[mCurrentIndex].date;
 	//Add code here to access the #slideShow element.
 	//Access the img element and replace its source
 	//with a new image from your images array which is loaded
 	//from the JSON string
+  var mLastFrameTime = 0;
+  mCurrentIndex += 1;
 	console.log('swap photo');
 }
+
+function iterateJSON(){
+  // !!!!!! Do this when you come back <3 !!!!!!
+};
 
 // Counter for the mImages array
 var mCurrentIndex = 0;
@@ -56,8 +71,8 @@ mRequest.addEventListener("readystatechange", () => {
   }
 });
 
-request.open("GET", "../images.json");
-request.send();
+mRequest.open("GET", "../images.json");
+mRequest.send();
 
 
 // Array holding GalleryImage objects (see below).
