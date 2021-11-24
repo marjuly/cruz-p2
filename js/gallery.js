@@ -39,9 +39,9 @@ function swapPhoto() {
   if (mCurrentIndex < 0) {
     mCurrentIndex = mImages.length[14];
   }
-  var location = document.getElementByClassName("location")[0].innerhtml = "Location: " + mImages[mCurrentIndex].location;
-  var description = document.getElementByClassName("description")[0].innerhtml = "Description: " + mImages[mCurrentIndex].description;
-  var date = document.getElementByClassName("date")[0].innerhtml = "Date: " + mImages[mCurrentIndex].date;
+  var location = document.getElementsByClassName("location")[0].innerhtml = "Location: " + mImages[mCurrentIndex].location;
+  var description = document.getElementsByClassName("description")[0].innerhtml = "Description: " + mImages[mCurrentIndex].description;
+  var date = document.getElementsByClassName("date")[0].innerhtml = "Date: " + mImages[mCurrentIndex].date;
 	//Add code here to access the #slideShow element.
 	//Access the img element and replace its source
 	//with a new image from your images array which is loaded
