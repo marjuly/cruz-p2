@@ -33,62 +33,69 @@ function animate() {
 /************* DO NOT TOUCH CODE ABOVE THIS LINE ***************/
 
 function swapPhoto() {
-  if (mCurrentIndex >= mImages.length) {
+
+  if(mCurrentIndex >= mImages.length)
+  {
     mCurrentIndex = 0;
   }
-  if (mCurrentIndex < 0) {
-    mCurrentIndex = mImages.length[14];
-  }
-  var location = document.getElementsByClassName("location")[0].innerhtml = "Location: " + mImages[mCurrentIndex].location;
-  var description = document.getElementsByClassName("description")[0].innerhtml = "Description: " + mImages[mCurrentIndex].description;
-  var date = document.getElementsByClassName("date")[0].innerhtml = "Date: " + mImages[mCurrentIndex].date;
-	//Add code here to access the #slideShow element.
-	//Access the img element and replace its source
-	//with a new image from your images array which is loaded
-	//from the JSON string
-  var mLastFrameTime = 0;
-  mCurrentIndex += 1;
-	console.log('swap photo');
-}
 
-function iterateJSON(){
-  for (var x = 0; x < mJson.length; x++) {
-    mImages[x] = GalleryImage.location = mJson.images[x].imgLocation;
-    mImages[x] = GalleryImage.description = mJson.images[x].imgDescription;
-    mImages[x] = GalleryImage.date = mJson.images[x].imgDate;
-    mImages[x] = GalleryImage.img/imgPath = mJson.images[x].img/imgPath;
+  if(mCurrentIndex < 0) {
+    mCurrentIndex = mImages.length-1;
   }
-};
+
+  document.getElementById('photo').src = mImages[mCurrentIndex].img;
+  document.getElementsByClassName('location')[0].innerHTML = "Location: " + mImages[mCurrentIndex].location;
+  document.getElementsByClassName('description')[0].innerHTML = "Description: " + mImages[mCurrentIndex].description;
+  document.getElementsByClassName('date')[0].innerHTML = "Date: " + mImages[mCurrentIndex].date;
+
+  mLastFrameTime = 0;
+  mCurrentIndex += 1;
+}
 
 // Counter for the mImages array
 var mCurrentIndex = 0;
 
+//PART 2 SLIDESHOW 1
 // XMLHttpRequest variable
 var mRequest = new XMLHttpRequest();
-mRequest.addEventListener("readystatechange", () => {
-  //(console.log(request, request.readyChange))
-
-  if (mRequest.readyState === 4 && mRequest.status === 200) {
-    const data = JSON.parse(mRequest.responseText);
-    console.log(data);
-  } else if (mRequest.readyState === 4) {
-    console.log("could not fetch the data");
-  }
-});
-
-mRequest.open("GET", "../images.json");
-mRequest.send();
-
 
 // Array holding GalleryImage objects (see below).
 var mImages = [];
 
+//PART 2 SLIDESHOW 2
 // Holds the retrived JSON information
 var mJson;
 
 // URL for the JSON to load by default
 // Some options for you are: images.json, images.short.json; you will need to create your own extra.json later
-var mUrl = 'insert_url_here_to_image_json';
+var mUrl = 'images.json';
+
+//PART 2 SLIDESHOW 1 & 2
+function fetchJSON()
+{
+  mRequest.onreadystatechange = function() {
+    console.log("on ready state change");
+    if(this.readyState == 4 && this.status == 200) {
+      mJson = JSON.parse(mRequest.responseText);
+      iterateJSON(mJson);
+    }
+  }
+  mRequest.open("GET", mUrl, true);
+  mRequest.send();
+}
+
+//PART 2 SLIDESHOW 3
+function iterateJSON(mJson)
+{
+  for( x = 0; x < mJson.images.length; x++ )
+  {
+    mImages[x] = new GalleryImage();
+    mImages[x].location = mJson.images[x].imgLocation;
+    mImages[x].description = mJson.images[x].description;
+    mImages[x].date = mJson.images[x].date;
+    mImages[x].img = mJson.images[x].imgPath;
+  }
+}
 
 
 //You can optionally use the following function as your event callback for loading the source of Images from your json data (for HTMLImageObject).
@@ -101,9 +108,11 @@ function makeGalleryImageOnloadCallback(galleryImage) {
 }
 
 $(document).ready( function() {
-  fetchJSON().iterateJSON(mJson);
+  fetchJSON();
+
+
 	// This initially hides the photos' metadata information
-	//$('.details').eq(0).hide();
+	// $('.details').eq(0).hide();
 
 });
 
@@ -114,8 +123,8 @@ window.addEventListener('load', function() {
 }, false);
 
 function GalleryImage() {
-  this.location;
-  this.description;
-  this.date;
-  this.img;
+  var location;
+  var description;
+  var date;
+  var img;
 }
