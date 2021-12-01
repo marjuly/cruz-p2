@@ -44,13 +44,31 @@ function swapPhoto() {
   }
 
   document.getElementById('photo').src = mImages[mCurrentIndex].img;
-  document.getElementsByClassName('location')[0].innerHTML = "Location: " + mImages[mCurrentIndex].location;
-  document.getElementsByClassName('description')[0].innerHTML = "Description: " + mImages[mCurrentIndex].description;
-  document.getElementsByClassName('date')[0].innerHTML = "Date: " + mImages[mCurrentIndex].date;
+  var loc = document.getElementsByClassName('location');
+  loc[0].innerHTML = "Location: " + mImages[mCurrentIndex].location;
+  var des = document.getElementsByClassName('description');
+  des[0].innerHTML = "Description: " + mImages[mCurrentIndex].description;
+  var dt = document.getElementsByClassName('date');
+  dt[0].innerHTML = "Date: " + mImages[mCurrentIndex].date;
 
   mLastFrameTime = 0;
   mCurrentIndex += 1;
 }
+
+function toggleDetails()
+{
+  if($(".moreIndicator").hasClass("rot90"))
+  {
+    $( ".moreIndicator" ).removeClass("rot90");
+    $(".moreIndicator").addClass("rot270");
+  }
+  else {
+    $( ".moreIndicator" ).removeClass("rot270");
+    $(".moreIndicator").addClass("rot90");
+  }
+  $( ".details" ).slideToggle( "slow", "linear" );
+}
+
 
 // Counter for the mImages array
 var mCurrentIndex = 0;
@@ -68,7 +86,7 @@ var mJson;
 
 // URL for the JSON to load by default
 // Some options for you are: images.json, images.short.json; you will need to create your own extra.json later
-var mUrl = 'images.json';
+var mUrl;
 
 //PART 2 SLIDESHOW 1 & 2
 function fetchJSON()
@@ -108,6 +126,24 @@ function makeGalleryImageOnloadCallback(galleryImage) {
 }
 
 $(document).ready( function() {
+
+  $( "#nextPhoto" ).position({
+  my: "right bottom",
+  at: "right bottom",
+  of: "#nav"
+});
+
+  const urlParams = new URLSearchParams(window.location.search);
+
+  for (const [key, value] of urlParams) {
+      console.log(`${key}:${value}`);
+      mUrl = value;
+  }
+if(mUrl == undefined)
+{
+  	mUrl = 'images.json';
+}
+
   fetchJSON();
 
 
