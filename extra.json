@@ -1,0 +1,34 @@
+{
+    "images": [
+        {
+            "imgPath": "img/extra/1.jpg",
+            "imgLocation": "Lapland, Finsko",
+            "description": "Photo by Maria Vojtovicova on Unsplash",
+            "date": "11/12/2020"
+        },
+        {
+            "imgPath": "img/extra/5.jpg",
+            "imgLocation": "Sergiev Posad, Russia",
+            "description": "Photo by Maria Krasnova on Unsplash",
+            "date": "06/02/2019"
+        },
+        {
+            "imgPath": "img/extra/3.jpg",
+            "imgLocation": "Alblasserdam, Netherlands",
+            "description": "Photo by Vishwas Katti on Unsplash",
+            "date": "06/13/2018"
+        },
+        {
+            "imgPath": "img/extra/2.jpg",
+            "imgLocation": "Lelystad, Netherlands",
+            "description": "Photo by Martijn Baudoin on Unsplash",
+            "date": "04/22/2019"
+        },
+        {
+            "imgPath": "img/extra/4.jpg",
+            "imgLocation": "Patmos, Greece",
+            "description": "Photo by Lorenzo Spoleti on Unsplash",
+            "date": "10/30/2017"
+        }
+  ]
+}
